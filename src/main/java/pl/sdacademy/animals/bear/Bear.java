@@ -54,11 +54,6 @@ public abstract class Bear implements Animal {
         this.weight = this.weight * 5 / 100;
     }
 
-    /*public boolean isHibernating() {
-        LocalDate nov20 = LocalDate.of
-        return LocalDate.now() <
-    }*/
-
     @Override
     public int getWeight() {
         return weight;

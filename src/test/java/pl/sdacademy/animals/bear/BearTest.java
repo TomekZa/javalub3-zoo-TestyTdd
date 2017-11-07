@@ -3,8 +3,10 @@ package pl.sdacademy.animals.bear;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.jupiter.api.Test;
+import pl.sdacademy.clock.Clock;
+import pl.sdacademy.clock.DateTimeClock;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BearTest {
 
@@ -31,7 +33,7 @@ class BearTest {
 
         boolean result = bear.isAlive();
 
-        assertThat(result).isTrue();
+        assertThat(result).isFalse();
     }
 
     @Test
@@ -69,10 +71,10 @@ class BearTest {
 
     @Test
     void blackBearShouldSleepFrom20NovTo15Mar() {
-        Bear bear = new BlackBear(10);
+        BlackBear bear = new BlackBear(10, new TestClock());
 
-        //boolean result = bear.isHibernating();
+        boolean result = bear.isHibernating();
 
-        //assertThat(result).isTrue();
+        assertThat(result).isTrue();
     }
 }
