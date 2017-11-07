@@ -1,7 +1,9 @@
 package pl.sdacademy.animals.bear;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class BearTest {
 
@@ -12,6 +14,67 @@ class BearTest {
 
         boolean result = bear.isAlive();
 
-        assertTrue(result == true);
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void feedingBearShouldSetTheDateOfTheLastMealForNow() {
+        Bear bear = new BlackBear(1);
+        bear.eat();
+
+        DateTime result = bear.getLastMealTime();
+
+        assertThat(new Duration(result, DateTime.now()).isShorterThan(Duration.standardSeconds(1))).isTrue();
+    }
+
+    @Test
+    void bearShouldNotBeAliveIfItHasNotEatenForMoreThan10Days() {
+        Bear bear = new BlackBear(1, new TestClock());
+
+        boolean result = bear.isAlive();
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void bearShouldWeighMoreAfterEating() {
+        Bear bear = new BlackBear(10);
+        int oldWeight = bear.getWeight();
+        bear.eat(1);
+
+        int newWeight = bear.getWeight();
+
+        assertThat(newWeight > oldWeight).isTrue();
+    }
+
+    @Test
+    void bearShouldWeighMoreAfterDrinkingWater() {
+        Bear bear = new BlackBear(10);
+        int oldWeight = bear.getWeight();
+        bear.drink(4);
+
+        int newWeight = bear.getWeight();
+
+        assertThat(newWeight > oldWeight).isTrue();
+    }
+
+    @Test
+    void bearShouldWeighLessAfterDoingPoop() {
+        Bear bear = new BlackBear(100);
+        int oldWeight = bear.getWeight();
+        bear.poop();
+
+        int newWeight = bear.getWeight();
+
+        assertThat(newWeight < oldWeight).isTrue();
+    }
+
+    @Test
+    void blackBearShouldSleepFrom20NovTo15Mar() {
+        Bear bear = new BlackBear(10);
+
+        //boolean result = bear.isHibernating();
+
+        //assertThat(result).isTrue();
     }
 }

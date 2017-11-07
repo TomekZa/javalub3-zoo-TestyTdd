@@ -6,6 +6,9 @@ import pl.sdacademy.animals.Animal;
 import pl.sdacademy.clock.Clock;
 import pl.sdacademy.clock.DateTimeClock;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 
 public abstract class Bear implements Animal {
 
@@ -37,6 +40,24 @@ public abstract class Bear implements Animal {
     public void eat() {
         lastMealTime = clock.getCurrentTime();
     }
+
+    public void eat(int eatMeal) {
+        lastMealTime = clock.getCurrentTime();
+        this.weight = this.weight + eatMeal;
+    }
+
+    public void drink(int waterWeight) {
+        this.weight = this.weight + waterWeight * 3 / 4;
+    }
+
+    public void poop() {
+        this.weight = this.weight * 5 / 100;
+    }
+
+    /*public boolean isHibernating() {
+        LocalDate nov20 = LocalDate.of
+        return LocalDate.now() <
+    }*/
 
     @Override
     public int getWeight() {
