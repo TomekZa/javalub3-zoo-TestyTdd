@@ -3,7 +3,8 @@ package pl.sdacademy.animals.bear;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BearTest {
 
@@ -12,9 +13,7 @@ class BearTest {
         Bear bear = new BlackBear(1);
         bear.eat();
 
-        boolean result = bear.isAlive();
-
-        assertThat(result).isTrue();
+        assertThat(bear.isAlive()).isTrue();
     }
 
     @Test
@@ -22,9 +21,8 @@ class BearTest {
         Bear bear = new BlackBear(1);
         bear.eat();
 
-        DateTime result = bear.getLastMealTime();
-
-        assertThat(new Duration(result, DateTime.now()).isShorterThan(Duration.standardSeconds(1))).isTrue();
+        assertThat(new Duration(bear.getLastMealTime(), DateTime.now()).isShorterThan(Duration.standardSeconds(1)))
+                .isTrue();
     }
 
     @Test
@@ -33,7 +31,7 @@ class BearTest {
 
         boolean result = bear.isAlive();
 
-        assertThat(result).isFalse();
+        assertThat(result).isTrue();
     }
 
     @Test
