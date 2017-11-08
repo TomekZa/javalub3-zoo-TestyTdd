@@ -68,13 +68,4 @@ class BearTest {
 
         assertThat(newWeight < oldWeight).isTrue();
     }
-
-    @Test
-    void blackBearShouldSleepFrom20NovTo15Mar() {
-        BlackBear bear = new BlackBear(10, new TestClock());
-
-        boolean result = bear.isHibernating();
-
-        assertThat(result).isTrue();
-    }
 }

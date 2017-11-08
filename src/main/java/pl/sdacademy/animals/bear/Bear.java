@@ -15,7 +15,7 @@ public abstract class Bear implements Animal {
     private int weight;
 
     private DateTime lastMealTime;
-    private Clock clock;
+    Clock clock;
 
     public DateTime getLastMealTime() {
         return lastMealTime;
@@ -53,6 +53,8 @@ public abstract class Bear implements Animal {
     public void poop() {
         this.weight = this.weight * 5 / 100;
     }
+
+    public abstract boolean isHibernating();
 
     @Override
     public int getWeight() {
