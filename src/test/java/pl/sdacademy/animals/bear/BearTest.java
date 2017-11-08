@@ -6,6 +6,7 @@ import org.joda.time.Duration;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import pl.sdacademy.clock.Clock;
+import pl.sdacademy.exception.BearHibernatingException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,5 +51,16 @@ class BearTest {
         assertThat(result).isTrue();
     }
 
+    @Test
+    void shouldThrowExceptionIfTryingToFeedAHibernatingBear() {
+        Clock clock = mock(Clock.class);
+        when(clock.getCurrentTime()).thenReturn(new DateTime(2017, 12, 01, 14, 0));
+        BlackBear bear = new BlackBear(1, clock);
+        assert bear.isHibernating();
+
+        boolean result = bear.isHibernating();
+
+        assertThrows(BearHibernatingException.class, () -> bear.eat());
+    }
 
 }

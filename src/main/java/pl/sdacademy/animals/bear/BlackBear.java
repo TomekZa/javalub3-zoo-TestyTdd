@@ -1,5 +1,6 @@
 package pl.sdacademy.animals.bear;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import pl.sdacademy.clock.Clock;
 
@@ -10,9 +11,15 @@ public class BlackBear extends Bear {
 
     @Override
     public boolean isHibernating() {
-        LocalDate twentiethNovember = new LocalDate(clock.getCurrentTime().getYear(), 11, 20);
+        DateTime currentTime = clock.getCurrentTime();
+        LocalDate currentDate = currentTime.toLocalDate();
+        int currentYear = currentTime.getYear();
 
-        return clock.getCurrentTime().toLocalDate().isAfter(twentiethNovember);
+        LocalDate twentiethNovember = new LocalDate(currentYear, 11, 20);
+        LocalDate fifteenthMarch = new LocalDate(currentYear, 3, 15);
+
+        return currentDate.isAfter(twentiethNovember) ||
+                currentDate.isBefore(fifteenthMarch);
     }
 
     public BlackBear(int weight) {
