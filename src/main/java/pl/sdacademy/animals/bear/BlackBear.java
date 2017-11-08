@@ -12,10 +12,15 @@ public class BlackBear extends Bear {
 
     @Override
     public boolean isHibernating() {
-        LocalDate twentiethNovember = new LocalDate(clock.getCurrentTime().getYear(), 11, 20);
-        LocalDate fifteenth = new LocalDate(clock.getCurrentTime().getYear(), 3, 15);
-        return clock.getCurrentTime().toLocalDate().isAfter(twentiethNovember)
-                || clock.getCurrentTime().toLocalDate().isBefore(fifteenth);
+        DateTime currentTime = clock.getCurrentTime();
+        LocalDate currentDate = currentTime.toLocalDate();
+        int currentYear = currentTime.getYear();
+
+        LocalDate twentiethNovember = new LocalDate(currentYear, 11, 20);
+        LocalDate fifteenthMarch = new LocalDate(currentYear, 3, 15);
+
+        return currentDate.isAfter(twentiethNovember) ||
+                currentDate.isBefore(fifteenthMarch);
     }
 
     public BlackBear(int weight) {

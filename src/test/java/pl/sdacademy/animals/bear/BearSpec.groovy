@@ -3,6 +3,7 @@ package pl.sdacademy.animals.bear
 import org.joda.time.DateTime
 import org.joda.time.Duration
 import pl.sdacademy.clock.Clock
+import pl.sdacademy.exception.BearHibernatingException
 import spock.lang.Specification
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat
@@ -48,10 +49,10 @@ class BearSpec extends Specification {
         assertThat(result).isFalse()
     }
 
-    def "Black bear should be hibernating if it is after 20 november"() {
+    def "Black bear should be hibernating between 20 november and 15 march"() {
         given:
         Clock clock = Mock(Clock)
-        clock.getCurrentTime() >> new DateTime(2017, 12, 01, 14, 0)
+        clock.getCurrentTime() >> date
         BlackBear bear = new BlackBear(1, clock)
 
         when:
@@ -59,6 +60,61 @@ class BearSpec extends Specification {
 
         then:
         assertThat(result).isTrue()
+
+        where:
+        date << [new DateTime(2017, 12, 01, 14, 0), new DateTime(2017, 11, 21, 14, 0), new DateTime(2018, 01, 04, 14, 0), new DateTime(2017, 03, 14, 14, 0)]
+    }
+
+    def "Black bear should not be hibernating if it is after 15 march and before 20 november"() {
+        given:
+        Clock clock = Mock(Clock)
+        clock.getCurrentTime() >> date
+        BlackBear bear = new BlackBear(1, clock)
+
+        when:
+        boolean result = bear.isHibernating()
+
+        then:
+        assertThat(result).isFalse()
+
+        where:
+        date << [new DateTime(2017, 05, 01, 14, 0), new DateTime(2017, 11, 19, 14, 0), new DateTime(2018, 07, 04, 14, 0), new DateTime(2017, 03, 16, 14, 0)]
+
+    }
+
+    // I HIGHLY DISCOURAGE MERGING THE TWO TEST METHODS INTO THE TEST BELOW
+    // (but it's a decent example for data tables in Spock
+    def "Bear should be hibernating between 20th November and 15th March"() {
+        given:
+        Clock clock = Mock(Clock)
+        clock.getCurrentTime() >> date
+        BlackBear bear = new BlackBear(1, clock)
+
+        when:
+        boolean result = bear.isHibernating()
+
+        then:
+        result == expected
+
+        where:
+        date | expected
+        new DateTime(2017, 05, 01, 14, 0) | false
+        new DateTime(2017, 12, 01, 14, 0) | true
+    }
+
+    def "Should throw exception when trying to feed a hibernating bear"() {
+        given:
+        Clock clock = Mock(Clock)
+        clock.getCurrentTime() >> new DateTime(2017, 12, 01, 14, 0)
+        BlackBear bear = new BlackBear(1, clock)
+        assert bear.isHibernating()
+
+        when:
+        bear.eat()
+
+        then:
+        thrown BearHibernatingException
+
     }
 
 }

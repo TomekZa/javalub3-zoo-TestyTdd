@@ -5,6 +5,7 @@ import org.joda.time.Duration;
 import pl.sdacademy.animals.Animal;
 import pl.sdacademy.clock.Clock;
 import pl.sdacademy.clock.DateTimeClock;
+import pl.sdacademy.exception.BearHibernatingException;
 
 
 public abstract class Bear implements Animal {
@@ -35,6 +36,10 @@ public abstract class Bear implements Animal {
     }
 
     public void eat() {
+        if (isHibernating()) {
+            throw new BearHibernatingException();
+        }
+
         lastMealTime = clock.getCurrentTime();
     }
 
