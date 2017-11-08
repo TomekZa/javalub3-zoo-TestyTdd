@@ -7,6 +7,11 @@ public class PolarBear extends Bear {
         super(weight, clock);
     }
 
+    @Override
+    public boolean isHibernating() {
+        return false;
+    }
+
     public PolarBear(int weight) {
         super(weight);
     }

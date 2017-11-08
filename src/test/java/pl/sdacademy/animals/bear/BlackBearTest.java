@@ -11,8 +11,8 @@ class BlackBearTest {
 
     @Test
     void blackBearShouldBeHibernatingAfterNov20() {
-        Clock clock = Mock(Clock);
-        clock.getCurrentTime() >> new DateTime(2017, 12, 01, 14, 0);
+        Clock clock = mock(Clock.class);
+        when(clock.getCurrentTime()).thenReturn(new DateTime(2017, 12, 01, 14, 0));
         BlackBear bear = new BlackBear(10, new TestClock());
 
         boolean result = bear.isHibernatingAfterNov20();
@@ -23,7 +23,6 @@ class BlackBearTest {
     @Test
     void blackBearShouldSleepBeforeMar15() {
         BlackBear bear = new BlackBear(10, new TestClock());
-        DateTime.now().plusDays(100);
 
         boolean result = bear.isHibernatingBeforeMar15();
 
