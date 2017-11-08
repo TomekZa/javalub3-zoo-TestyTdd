@@ -51,13 +51,7 @@ public abstract class Bear implements Animal {
         this.weight = this.weight * 5 / 100;
     }
 
-    public boolean isHibernating() {
-        return isHibernatingAfter() == true || isHibernatingBefore() == true;
-    }
-
-    public abstract boolean isHibernatingAfter();
-
-    public abstract boolean isHibernatingBefore();
+    public abstract boolean isHibernating();
 
     @Override
     public int getWeight() {

@@ -13,9 +13,9 @@ class BlackBearTest {
     void blackBearShouldBeHibernatingAfterNov20() {
         Clock clock = Mockito.mock(Clock.class);
         Mockito.when(clock.getCurrentTime()).thenReturn(new DateTime(2017, 12, 01, 14, 0));
-        Bear bear = new BlackBear(10, new TestClock());
+        Bear bear = new BlackBear(10, clock);
 
-        boolean result = bear.isHibernatingAfter();
+        boolean result = bear.isHibernating();
 
         assertThat(result).isTrue();
     }
@@ -24,9 +24,33 @@ class BlackBearTest {
     void blackBearShouldSleepBeforeMar15() {
         Clock clock = Mockito.mock(Clock.class);
         Mockito.when(clock.getCurrentTime()).thenReturn(new DateTime(2017, 2, 10, 14, 0));
-        Bear bear = new BlackBear(10, new TestClock());
+        Bear bear = new BlackBear(10, clock);
 
-        boolean result = bear.isHibernatingBefore();
+        boolean result = bear.isHibernating();
+
+        assertThat(result).isTrue();
+    }
+
+    /**
+     * tabelka groovy
+     * where:
+     * date << [new DateTime(), new DateTime(), ... ]
+     */
+
+    /**
+     * dwa w jednym
+     * where:
+     * date | expected
+     * newDate(...) | false
+     */
+
+    @Test
+    void blackBearShouldNotSleepAfterMar15AndBeforeNov20() {
+        Clock clock = Mockito.mock(Clock.class);
+        Mockito.when(clock.getCurrentTime()).thenReturn(new DateTime(2017, 4, 10, 14, 0));
+        Bear bear = new BlackBear(10, clock);
+
+        boolean result = bear.isHibernating();
 
         assertThat(result).isTrue();
     }

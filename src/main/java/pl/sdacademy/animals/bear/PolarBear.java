@@ -1,5 +1,7 @@
 package pl.sdacademy.animals.bear;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import pl.sdacademy.clock.Clock;
 
 public class PolarBear extends Bear {
@@ -8,13 +10,10 @@ public class PolarBear extends Bear {
     }
 
     @Override
-    public boolean isHibernatingAfter() {
-        return false;
-    }
-
-    @Override
-    public boolean isHibernatingBefore() {
-        return false;
+    public boolean isHibernating() {
+        LocalDate tenthOctober = new LocalDate(clock.getCurrentTime().getYear(), 10, 10);
+        LocalDate fifthMay = new LocalDate(clock.getCurrentTime().getYear(), 5, 5);
+        return clock.getCurrentTime().toLocalDate().isBefore(tenthOctober) || clock.getCurrentTime().toLocalDate().isAfter(fifthMay);
     }
 
     public PolarBear(int weight) {
