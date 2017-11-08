@@ -8,7 +8,12 @@ public class PolarBear extends Bear {
     }
 
     @Override
-    public boolean isHibernating() {
+    public boolean isHibernatingAfter() {
+        return false;
+    }
+
+    @Override
+    public boolean isHibernatingBefore() {
         return false;
     }
 

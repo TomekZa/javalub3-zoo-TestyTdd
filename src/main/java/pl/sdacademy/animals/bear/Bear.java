@@ -6,9 +6,6 @@ import pl.sdacademy.animals.Animal;
 import pl.sdacademy.clock.Clock;
 import pl.sdacademy.clock.DateTimeClock;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 
 public abstract class Bear implements Animal {
 
@@ -54,7 +51,13 @@ public abstract class Bear implements Animal {
         this.weight = this.weight * 5 / 100;
     }
 
-    public abstract boolean isHibernating();
+    public boolean isHibernating() {
+        return isHibernatingAfter() == true || isHibernatingBefore() == true;
+    }
+
+    public abstract boolean isHibernatingAfter();
+
+    public abstract boolean isHibernatingBefore();
 
     @Override
     public int getWeight() {
